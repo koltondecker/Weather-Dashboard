@@ -3,7 +3,6 @@ $(document).ready(function() {
 
     var apiKey = "c67bcac9baf63e1d77cd3d4a1d20a93c";
     var recentCitiesArray = [];
-    var newCity;
     var recentSearchesAmount = 10;
 
     updateListofCities();
@@ -12,12 +11,12 @@ $(document).ready(function() {
         e.preventDefault();
         newCity = $("#search-city").val().trim();
 
-        updateListofCities(newCity);
         currentWeatherAPI(newCity);
+        fiveDayForecastAPI(newCity);
     });
 
 
-    function updateListofCities(newCity) {
+    function updateListofCities(officialName) {
 
         //Clear list of recent cities each time so we aren't stacking content
         $("#recent-cities-list").empty();
@@ -30,15 +29,15 @@ $(document).ready(function() {
             recentCitiesArray = recentCities;
         }
 
-        //Check if city already exists in array, slice it out if it does, then prepend newCity value to the front of our array.
-        if(newCity !== undefined) {
-            var index = recentCitiesArray.indexOf(newCity);
+        //Check if city already exists in array, slice it out if it does, then prepend officialName value to the front of our array.
+        if(officialName !== undefined) {
+            var index = recentCitiesArray.indexOf(officialName);
 
             if (index >= 0) {
                 recentCitiesArray.splice(index, 1);
             }
             
-            recentCitiesArray.unshift(newCity);
+            recentCitiesArray.unshift(officialName);
         }
         
         //Slices off the last element in the array if the array exceeds a length of 10;
@@ -90,37 +89,45 @@ $(document).ready(function() {
             var lat = response.coord.lat;
             var long = response.coord.lon;
 
+            var officialName = response.name;
+
+            updateListofCities(officialName);
             uvIndexAPI(cityName, weatherImage, temperature, humidity, windSpeed, lat, long);
         })
     }
 
     function uvIndexAPI(cityName, weatherImage, temperature, humidity, windSpeed, lat, long) {
 
-    var queryUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + apiKey;
+        var queryUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + apiKey;
 
-    $.ajax({
-        url: queryUrl,
-        method: "Get"
-    }).then(function(response) {
-        console.log(response);
+        $.ajax({
+            url: queryUrl,
+            method: "Get"
+        }).then(function(response) {
+            console.log(response);
 
-        var uvIndex = $("<p>");
-        uvIndex.text("UV Index: " + response.value);
-
-
-        $("#city-current-info").append(cityName, weatherImage, temperature, humidity, windSpeed, uvIndex);
-    });
+            var uvIndex = $("<p>");
+            uvIndex.text("UV Index: " + response.value);
 
 
-
+            $("#city-current-info").append(cityName, weatherImage, temperature, humidity, windSpeed, uvIndex);
+        });
     }
 
 
+    function fiveDayForecastAPI(newCity) {
+
+        var queryUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + newCity + "&appid=" + apiKey;
+
+        $.ajax({
+            url: queryUrl,
+            method: "Get"
+        }).then(function(response) {
+            console.log(response);
 
 
 
-
-
-
+        });
+    }
 
 });
