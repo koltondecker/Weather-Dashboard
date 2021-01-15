@@ -5,3 +5,18 @@
 .h1 {
     font-size: 50px;
 }
+
+#left-side-col {
+    height: 100%;
+    padding: 20px;
+}
+
+#right-side-col {
+    width: 100%;
+}
+
+#city-current-info {
+    height: 100px;
+    width: auto;
+    border-style: solid;
+}

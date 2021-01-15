@@ -12,26 +12,35 @@
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-          <span class="navbar-brand mb-0 h1 mx-auto">Weather Dashboard</span>
+            <span class="navbar-brand mb-0 h1 mx-auto">Weather Dashboard</span>
         </div>
     </nav>
     <br>
     <div class="container">
         <div class="row">
-          <div class="col-md-4">
-            <form>
-                <div class="form-group">
-                    <label for="floatingTextarea">Search for a City:</label>
-                    <input type="text" id="search-city" class="form-control" name="floatingTextarea"></input>
-                    <button class="searchBtn"><i class="fas fa-search"></i></button>
+            <div id="left-side-col" class="col-md-4 bg-light">
+                <form>
+                    <div class="form-group">
+                        <label class="search-label" for="floatingTextarea"><h2>Search for a City:</h2></label>
+                        <input type="text" id="search-city" class="form-control" name="floatingTextarea"></input>
+                        <button class="searchBtn btn btn-primary"><i class="fas fa-search"></i></button>
+                    </div>
+                </form>
+                <br>
+                <div id="recent-cities-div">
+                    <ul id="recent-cities-list" class="list-group"></ul>
                 </div>
-            </form>
-          </div>
-          <div class="col-md-8">
-            This is column #2!
-          </div>
+            </div>
+            <div id="right-side-col" class="col-md-8">
+                <div class="row">
+                    <div id="city-current-info" class="col-md-12 border"></div>
+                </div>
+                <div class="row">
+                    <div id="city-5-day-forecast" class="col-md-12"></div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
