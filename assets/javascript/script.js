@@ -3,11 +3,13 @@ $(document).ready(function() {
 
 var apiKey = "c67bcac9baf63e1d77cd3d4a1d20a93c";
 var recentCitiesArray = [];
+var newCity;
 
+addCityToList();
 
 $("#searchBtn").on("click", function(e) {
     e.preventDefault();
-    var newCity = $("#search-city").val().trim();
+    newCity = $("#search-city").val().trim();
 
     addCityToList(newCity);
     weatherAPI(newCity);
@@ -28,14 +30,16 @@ function addCityToList(newCity) {
         recentCitiesArray = recentCities;
     }
 
-    var index = recentCitiesArray.indexOf(newCity);
+    if(newCity !== undefined) {
+        var index = recentCitiesArray.indexOf(newCity);
 
-    if (index >= 0) {
-        recentCitiesArray.splice(index, 1);
+        if (index >= 0) {
+            recentCitiesArray.splice(index, 1);
+        }
+        
+        recentCitiesArray.unshift(newCity);
     }
     
-    recentCitiesArray.unshift(newCity);
-
 
     if(recentCitiesArray.length > 10) {
         recentCitiesArray.pop();
