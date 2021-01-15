@@ -18,5 +18,8 @@
 #city-current-info {
     height: 100px;
     width: auto;
-    border-style: solid;
+}
+
+.city-name {
+    float: left;
 }

@@ -13,7 +13,7 @@ $(document).ready(function() {
         newCity = $("#search-city").val().trim();
 
         updateListofCities(newCity);
-        weatherAPI(newCity);
+        currentWeatherAPI(newCity);
     });
 
 
@@ -60,7 +60,7 @@ $(document).ready(function() {
 
     }
 
-    function weatherAPI(newCity) {
+    function currentWeatherAPI(newCity) {
         $("#city-current-info").empty();
         $("#city-5-day-forecast").empty();
 
@@ -72,8 +72,14 @@ $(document).ready(function() {
         }).then(function(response) {
             console.log(response);
 
+            var weatherImageID = response.weather[0].icon;
+            var weatherImageURL = "https://openweathermap.org/img/w/" + weatherImageID + ".png";
+
             var cityName = $("<h3>");
+            cityName.addClass("city-name");
             cityName.text(response.name);
+            var weatherImage = $("<img>");
+            weatherImage.attr("src", weatherImageURL);
             var temperature = $("<p>");
             temperature.text("Temperature: " + response.main.temp + " ºF");
             var humidity = $("<p>");
@@ -81,9 +87,31 @@ $(document).ready(function() {
             var windSpeed = $("<p>");
             windSpeed.text("Wind Speed: " + response.wind.speed + " MPH");
             
-            $("#city-current-info").append(cityName, temperature, humidity, windSpeed);
+            var lat = response.coord.lat;
+            var long = response.coord.lon;
 
+            uvIndexAPI(cityName, weatherImage, temperature, humidity, windSpeed, lat, long);
         })
+    }
+
+    function uvIndexAPI(cityName, weatherImage, temperature, humidity, windSpeed, lat, long) {
+
+    var queryUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + apiKey;
+
+    $.ajax({
+        url: queryUrl,
+        method: "Get"
+    }).then(function(response) {
+        console.log(response);
+
+        var uvIndex = $("<p>");
+        uvIndex.text("UV Index: " + response.value);
+
+
+        $("#city-current-info").append(cityName, weatherImage, temperature, humidity, windSpeed, uvIndex);
+    });
+
+
 
     }
 
