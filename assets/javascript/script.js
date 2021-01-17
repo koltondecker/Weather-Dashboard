@@ -11,7 +11,7 @@ $(document).ready(function() {
         e.preventDefault();
         newCity = $("#search-city").val().trim();
 
-        currentWeatherAPI(newCity);
+        updateListofCities(newCity);
         //fiveDayForecastAPI(newCity);
     });
 
@@ -19,7 +19,7 @@ $(document).ready(function() {
         console.log(this.textContent);
         var city = this.textContent;
 
-        currentWeatherAPI(city);
+        updateListofCities(city);
     });
 
     function updateListofCities(officialName) {
@@ -62,7 +62,10 @@ $(document).ready(function() {
         }
 
         localStorage.setItem("recentCitiesArray", JSON.stringify(recentCitiesArray));
-        return;
+
+        if(recentCitiesArray.length > 0) {
+            currentWeatherAPI(recentCitiesArray[0]);
+        }
     }
 
     function currentWeatherAPI(newCity) {
@@ -100,11 +103,9 @@ $(document).ready(function() {
 
             var officialName = response.name;
 
-            updateListofCities(officialName);
+            //updateListofCities(officialName);
             uvIndexAPI(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, lat, long);
-            return;
         });
-        return;
     }
 
     function uvIndexAPI(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, lat, long) {
@@ -122,9 +123,7 @@ $(document).ready(function() {
 
 
             $("#city-current-info").append(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, uvIndex);
-            return;
         });
-        return;
     }
 
 
@@ -145,9 +144,7 @@ $(document).ready(function() {
 
 
             $("#city-5-day-forecast").append(fiveDayHeader);
-            return;
         });
-        return;
     }
 
 });
