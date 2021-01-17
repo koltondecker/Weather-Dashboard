@@ -11,15 +11,19 @@
     padding: 20px;
 }
 
+.list-group-item:hover {
+    background-color: rgb(177, 175, 175);
+}
+
 #right-side-col {
     width: 100%;
 }
 
 #city-current-info {
-    height: 100px;
+    height: auto;
     width: auto;
 }
 
-.city-name {
+.city-name-and-date {
     float: left;
 }

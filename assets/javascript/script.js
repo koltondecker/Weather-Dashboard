@@ -12,9 +12,15 @@ $(document).ready(function() {
         newCity = $("#search-city").val().trim();
 
         currentWeatherAPI(newCity);
-        fiveDayForecastAPI(newCity);
+        //fiveDayForecastAPI(newCity);
     });
 
+    $(document).on('click', '.list-group-item', function(e) {
+        console.log(this.textContent);
+        var city = this.textContent;
+
+        currentWeatherAPI(city);
+    });
 
     function updateListofCities(officialName) {
 
@@ -56,7 +62,7 @@ $(document).ready(function() {
         }
 
         localStorage.setItem("recentCitiesArray", JSON.stringify(recentCitiesArray));
-
+        return;
     }
 
     function currentWeatherAPI(newCity) {
@@ -74,9 +80,12 @@ $(document).ready(function() {
             var weatherImageID = response.weather[0].icon;
             var weatherImageURL = "https://openweathermap.org/img/w/" + weatherImageID + ".png";
 
-            var cityName = $("<h3>");
-            cityName.addClass("city-name");
-            cityName.text(response.name);
+            var cityNameAndDate = $("<h3>");
+            cityNameAndDate.addClass("city-name-and-date");
+            var cityName = response.name;
+            //Takes unix timestamp from api and gets the date string out of it.
+            var currentDate = "(" + new Date(response.dt * 1000).toLocaleDateString("en-US") + ")";
+            cityNameAndDate.text(cityName + currentDate);
             var weatherImage = $("<img>");
             weatherImage.attr("src", weatherImageURL);
             var temperature = $("<p>");
@@ -92,11 +101,13 @@ $(document).ready(function() {
             var officialName = response.name;
 
             updateListofCities(officialName);
-            uvIndexAPI(cityName, weatherImage, temperature, humidity, windSpeed, lat, long);
-        })
+            uvIndexAPI(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, lat, long);
+            return;
+        });
+        return;
     }
 
-    function uvIndexAPI(cityName, weatherImage, temperature, humidity, windSpeed, lat, long) {
+    function uvIndexAPI(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, lat, long) {
 
         var queryUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + apiKey;
 
@@ -110,24 +121,33 @@ $(document).ready(function() {
             uvIndex.text("UV Index: " + response.value);
 
 
-            $("#city-current-info").append(cityName, weatherImage, temperature, humidity, windSpeed, uvIndex);
+            $("#city-current-info").append(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, uvIndex);
+            return;
         });
+        return;
     }
 
 
     function fiveDayForecastAPI(newCity) {
-
-        var queryUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + newCity + "&appid=" + apiKey;
+        var forecastCount = 5;
+        var queryUrl = "https://api.openweathermap.org/data/2.5/forecast/daily?q=" + newCity + "&cnt=" + forecastCount + "&units=imperial&appid=" + apiKey;
 
         $.ajax({
             url: queryUrl,
             method: "Get"
         }).then(function(response) {
             console.log(response);
+            var fiveDayHeader = $("<h3>");
+            fiveDayHeader.addClass("fiveDayHeader");
+            fiveDayHeader.text("5-Day Forecast: ");
+
+            console.log(response.list[0].main.temp);
 
 
-
+            $("#city-5-day-forecast").append(fiveDayHeader);
+            return;
         });
+        return;
     }
 
 });
