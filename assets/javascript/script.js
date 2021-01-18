@@ -1,5 +1,10 @@
 $(document).ready(function() {
 //Javascript code in here.
+    var $rightSideCol = $("#right-side-col");
+    $(document).on({
+        ajaxStart: function() { $rightSideCol.addClass("loading"); },
+        ajaxStop: function() { $rightSideCol.removeClass("loading"); }
+    });
 
     $("#locationBtn").on("click", function(e) {
         e.preventDefault();
