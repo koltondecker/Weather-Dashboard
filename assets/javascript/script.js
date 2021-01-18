@@ -174,7 +174,7 @@ $(document).ready(function() {
                     var weatherImageUrl = "https://openweathermap.org/img/w/" + weatherImageID + ".png";
                     var weatherIcon = $("<img>").attr("src", weatherImageUrl);
                     var temperature = $("<p>").addClass("card-text");
-                    temperature.text("Temp: " + response.list[i].main.temp);
+                    temperature.text("Temp: " + response.list[i].main.temp + " ºF");
                     var humidity = $("<p>").addClass("card-text");
                     humidity.text("Humidity: " + response.list[i].main.humidity + "%");
 
