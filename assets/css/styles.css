@@ -10,8 +10,6 @@ body {
 }
 
 .navbar {
-    /* background: rgba(255, 255, 255, 0.1); */
-    /* background: rgba(37, 57, 74, 0.6); */
     background: rgba(255, 255, 255, 0);
     color: black;
     margin-bottom: 10px;
@@ -31,7 +29,7 @@ main {
     background: white;
     min-height: 80vh;
     width: 60%;
-    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
     border-radius: 30px;
     z-index: 2;
     backdrop-filter: blur(30px);
