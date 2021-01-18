@@ -1,6 +1,20 @@
 $(document).ready(function() {
 //Javascript code in here.
 
+    $("#locationBtn").on("click", function(e) {
+        e.preventDefault();
+        navigator.geolocation.getCurrentPosition((position) => {
+            $.ajax({
+                url: "https://geolocation-db.com/jsonp",
+                jsonpCallback: "callback",
+                dataType: "jsonp",
+                success: function(location) {
+                    currentWeatherAPI(location.city);
+                }
+            })
+        });
+    });
+    
     var apiKey = "c67bcac9baf63e1d77cd3d4a1d20a93c";
     var forecastApiKey = "c6a936905a8566bfdc4cca37ff190c24";
     var recentCitiesArray = [];
