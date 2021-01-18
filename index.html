@@ -10,39 +10,40 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1 mx-auto">Weather Dashboard</span>
         </div>
     </nav>
-    <br>
-    <div class="container-fluid">
-        <div class="row">
-            <div id="left-side-col" class="col-md-3 bg-light">
-                <form>
-                    <div class="form-group">
-                        <label class="search-label" for="floatingTextarea"><h2>Search for a City:</h2></label>
-                        <input type="text" id="search-city" class="form-control" name="floatingTextarea"></input>
-                        <button id="searchBtn" class="searchBtn btn btn-primary"><i class="fas fa-search"></i></button>
+    <main class="main">
+        <br>
+        <div class="container-fluid glass">
+            <div class="row">
+                <div id="left-side-col" class="col-md-3">
+                    <form>
+                        <div class="form-group">
+                            <label class="search-label" for="floatingTextarea"><h2>Search for a City:</h2></label>
+                            <input type="text" id="search-city" class="form-control" name="floatingTextarea"></input>
+                            <button id="searchBtn" class="searchBtn btn btn-primary"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
+                    <br>
+                    <div id="recent-cities-div">
+                        <ul id="recent-cities-list" class="list-group"></ul>
                     </div>
-                </form>
-                <br>
-                <div id="recent-cities-div">
-                    <ul id="recent-cities-list" class="list-group"></ul>
                 </div>
-            </div>
-            <div id="right-side-col" class="col-md-9">
-                <div class="row">
-                    <div id="city-current-info" class="col-md-12"></div>
-                </div>
-                <br>
-                <div class="row">
-                    <div id="city-5-day-forecast" class="col-md-12"></div>
+                <div id="right-side-col" class="col-md-9">
+                    <div class="row">
+                        <div id="city-current-info" class="col-md-12"></div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div id="city-5-day-forecast" class="col-md-12"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>

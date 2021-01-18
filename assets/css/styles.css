@@ -1,6 +1,45 @@
-.container {
+* {
+    margin: none;
+    padding: none;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to right top, #2881ca, #2f81b8);
+    min-height: 100vh;
+}
+
+.navbar {
+    /* background: rgba(255, 255, 255, 0.1); */
+    /* background: rgba(37, 57, 74, 0.6); */
+    background: rgba(255, 255, 255, 0);
+    color: black;
+    margin-bottom: 10px;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-fluid {
     margin: 0 0 1rem 1rem;
-    width: auto;
+}
+
+.glass {
+    background: white;
+    min-height: 80vh;
+    width: 60%;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
+    border-radius: 30px;
+    z-index: 2;
+    backdrop-filter: blur(30px);
+    transition: all .2s ease-in-out;
+}
+
+.glass:hover {
+    transform: scale(1.05);
 }
 
 .h1 {
@@ -14,6 +53,8 @@
 
 #search-city {
     width: 75%;
+    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 .list-group-item:hover {
@@ -22,6 +63,7 @@
 
 #right-side-col {
     width: 100%;
+    padding: 20px;
 }
 
 #city-current-info {
@@ -35,7 +77,7 @@
 }
 
 .uv-value {
-    width: 2rem;
+    width: 3rem;
     height: 1.5rem;
     text-align: center;
     align-content: center;
@@ -47,7 +89,7 @@
 }
 
 .medium-uv {
-    background-color: yellow;
+    background-color: rgb(209, 209, 17);
 }
 
 .high-uv {
@@ -67,5 +109,5 @@
     width: auto;
     background-color: rgb(67, 129, 211);
     color: white;
-    margin: 2rem;
+    margin: 1rem;
 }
