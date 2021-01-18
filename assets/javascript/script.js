@@ -119,12 +119,31 @@ $(document).ready(function() {
             method: "Get"
         }).then(function(response) {
             console.log(response);
+            var indexValue = 7;
+            var uvIndexPTag = $("<p>");
+            uvIndexPTag.text("UV Index: ");
+            uvIndexPTag.addClass("uv-ptag");
+            var uvIndexValue = $("<p>");
+            uvIndexValue.text(response.value);
+            uvIndexValue.addClass("uv-value");
 
-            var uvIndex = $("<p>");
-            uvIndex.text("UV Index: " + response.value);
+            uvIndexPTag.append(uvIndexValue);
+
+            if(response.value < 3) {
+                uvIndexValue.addClass("low-uv");
+            }
+            else if(response.value >= 3 && response.value < 6) {
+                uvIndexValue.addClass("medium-uv");
+            }
+            else if(response.value >= 6 && response.value < 8) {
+                uvIndexValue.addClass("high-uv");
+            }
+            else {
+                uvIndexValue.addClass("very-high-uv");
+            }
 
 
-            $("#city-current-info").append(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, uvIndex);
+            $("#city-current-info").append(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, uvIndexPTag);
         });
     }
 

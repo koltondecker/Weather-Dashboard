@@ -1,5 +1,6 @@
 .container {
     margin: 0 0 1rem 1rem;
+    width: auto;
 }
 
 .h1 {
@@ -9,6 +10,10 @@
 #left-side-col {
     height: 100%;
     padding: 20px;
+}
+
+#search-city {
+    width: 75%;
 }
 
 .list-group-item:hover {
@@ -24,6 +29,43 @@
     width: auto;
 }
 
+.uv-ptag {
+    display: flex;
+    float: left;
+}
+
+.uv-value {
+    width: 2rem;
+    height: 1.5rem;
+    text-align: center;
+    align-content: center;
+    color: white;
+}
+
+.low-uv {
+    background-color: green;
+}
+
+.medium-uv {
+    background-color: yellow;
+}
+
+.high-uv {
+    background-color: orange;
+}
+
+.very-high-uv {
+    background-color: red;
+}
+
 .city-name-and-date {
     float: left;
+}
+
+.card {
+    float: left;
+    width: auto;
+    background-color: rgb(67, 129, 211);
+    color: white;
+    margin: 2rem;
 }
