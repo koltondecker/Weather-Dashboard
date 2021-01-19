@@ -1,5 +1,14 @@
 $(document).ready(function() {
-//Javascript code in here.
+//Javascript code in here.    
+    
+    var apiKey = "c67bcac9baf63e1d77cd3d4a1d20a93c";
+    var forecastApiKey = "c6a936905a8566bfdc4cca37ff190c24";
+    var ipAddressApiKey = "1e2553f4aa45ffd9c936850e77e4a3e8";
+    var recentCitiesArray = [];
+    var recentSearchesAmount = 10;
+
+    updateListofCities();
+
     var $rightSideCol = $("#right-side-col");
     $(document).on({
         ajaxStart: function() { $rightSideCol.addClass("loading"); },
@@ -14,19 +23,23 @@ $(document).ready(function() {
                 jsonpCallback: "callback",
                 dataType: "jsonp",
                 success: function(location) {
-                    currentWeatherAPI(location.city);
-                }
+                    console.log(location);
+                    if(location.city!==null) {
+                        currentWeatherAPI(location.city);
+                    }
+                    else {
+                        $.ajax({
+                            url: "http://api.ipstack.com/" + location.IPv4 + "?access_key=" + ipAddressApiKey,
+                            method: "Get"
+                        }).then(function(location) {
+                            currentWeatherAPI(location.city);
+                        });
+                    }
+                },
             })
         });
     });
     
-    var apiKey = "c67bcac9baf63e1d77cd3d4a1d20a93c";
-    var forecastApiKey = "c6a936905a8566bfdc4cca37ff190c24";
-    var recentCitiesArray = [];
-    var recentSearchesAmount = 10;
-
-    updateListofCities();
-
     if(recentCitiesArray.length > 0) {
         currentWeatherAPI(recentCitiesArray[0]);
     }
