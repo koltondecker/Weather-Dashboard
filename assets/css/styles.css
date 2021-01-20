@@ -5,7 +5,10 @@
 }
 
 body {
-    background: linear-gradient(to right top, #2881ca, #2f81b8);
+    /* background: linear-gradient(to right top, #2881ca, #2f81b8); */
+    background-image: url("../images/clouds1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     min-height: 100vh;
 }
 

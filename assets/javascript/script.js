@@ -9,12 +9,23 @@ $(document).ready(function() {
 
     updateListofCities();
 
+    //Loading ring when an ajax is called and we are waiting on a response.
     var $rightSideCol = $("#right-side-col");
     $(document).on({
         ajaxStart: function() { $rightSideCol.addClass("loading"); },
         ajaxStop: function() { $rightSideCol.removeClass("loading"); }
     });
 
+    //Search button on click function takes text from input box and passes it to our current weather api to find city weather location.
+    $("#searchBtn").on("click", function(e) {
+        e.preventDefault();
+        newCity = $("#search-city").val().trim();
+
+        currentWeatherAPI(newCity);
+    });
+
+    //On click of the "use current location" button, this function will use the geolocation.getCurrentPostion method
+    // to find nearest location to pass as city for weather dashboard. Uses ip address as backup if position fails.
     $("#locationBtn").on("click", function(e) {
         e.preventDefault();
         navigator.geolocation.getCurrentPosition((position) => {
@@ -23,7 +34,6 @@ $(document).ready(function() {
                 jsonpCallback: "callback",
                 dataType: "jsonp",
                 success: function(location) {
-                    console.log(location);
                     if(location.city!==null) {
                         currentWeatherAPI(location.city);
                     }
@@ -40,24 +50,20 @@ $(document).ready(function() {
         });
     });
 
+    //On click document listener for colored uv index text that pops up a modal that explains the color legend.
     $(document).on("click", ".uv-value", function() {
         jQuery.noConflict(); 
         $("#myModal").modal("show");
     });
     
+    //Checks if the recent cities array contains anything and then loads the first item in the array on page load.
+    //This is always the last city searched also.
     if(recentCitiesArray.length > 0) {
         currentWeatherAPI(recentCitiesArray[0]);
     }
 
-    $("#searchBtn").on("click", function(e) {
-        e.preventDefault();
-        newCity = $("#search-city").val().trim();
-
-        currentWeatherAPI(newCity);
-    });
-
+    //On click document listener for my list of recently searched cities.
     $(document).on('click', '.list-group-item', function(e) {
-        console.log(this.textContent);
         var city = this.textContent;
 
         currentWeatherAPI(city);
@@ -106,6 +112,8 @@ $(document).ready(function() {
         return recentCitiesArray;
     }
 
+    //This function searches the current weather api from openweathermap and creates elements and appends them
+    // to html for desired data from api based on searched city from input box.
     function currentWeatherAPI(newCity) {
         $("#city-current-info").empty();
         $("#city-5-day-forecast").empty();
@@ -117,7 +125,7 @@ $(document).ready(function() {
             method: "Get"
         }).then(function(response) {
             console.log(response);
-
+            //Grabs the icon code from the response object and uses the openweathermap url to get image source for element.
             var weatherImageID = response.weather[0].icon;
             var weatherImageURL = "https://openweathermap.org/img/w/" + weatherImageID + ".png";
 
@@ -135,7 +143,7 @@ $(document).ready(function() {
             humidity.text("Humidity: " + response.main.humidity + "%");
             var windSpeed = $("<p>");
             windSpeed.text("Wind Speed: " + response.wind.speed + " MPH");
-            
+            //Grabbing lat and long info to pass to UV Index api in order to use it.
             var lat = response.coord.lat;
             var long = response.coord.lon;
 
@@ -147,6 +155,7 @@ $(document).ready(function() {
         });
     }
 
+    //This function searches the UV Index API with lat and long values from current weather api and gives us the uv index for that city.
     function uvIndexAPI(cityNameAndDate, weatherImage, temperature, humidity, windSpeed, lat, long) {
 
         var queryUrl = "https://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + long + "&appid=" + apiKey;
@@ -166,6 +175,7 @@ $(document).ready(function() {
 
             uvIndexPTag.append(uvIndexValue);
 
+            //If else statements use the current uv index value and apply a color class to the text based on a uv index scale.
             if(response.value < 3) {
                 uvIndexValue.addClass("low-uv");
             }
@@ -184,7 +194,9 @@ $(document).ready(function() {
         });
     }
 
-
+    //This function searches the five day forecast api for forecast data based on the searched city. Response gives 5 day forecast
+    // at 3 hour intevals so a time of 3:00 pm is used each day to grab and display forecast values using a for loop through the
+    // 40 returned objects.
     function fiveDayForecastAPI(newCity) {
         var queryUrl = "https://api.openweathermap.org/data/2.5/forecast?q=" + newCity + "&appid=" + forecastApiKey + "&units=imperial";
 
