@@ -55,6 +55,11 @@ main {
     margin-bottom: 15px;
 }
 
+#searchBtn {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
 .list-group-item:hover {
     background-color: rgb(177, 175, 175);
 }

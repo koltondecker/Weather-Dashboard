@@ -39,6 +39,11 @@ $(document).ready(function() {
             })
         });
     });
+
+    $(document).on("click", ".uv-value", function() {
+        jQuery.noConflict(); 
+        $("#myModal").modal("show");
+    });
     
     if(recentCitiesArray.length > 0) {
         currentWeatherAPI(recentCitiesArray[0]);
