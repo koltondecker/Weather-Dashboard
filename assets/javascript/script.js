@@ -49,12 +49,6 @@ $(document).ready(function() {
             })
         });
     });
-
-    //On click document listener for colored uv index text that pops up a modal that explains the color legend.
-    $(document).on("click", ".uv-value", function() {
-        jQuery.noConflict(); 
-        $("#myModal").modal("show");
-    });
     
     //Checks if the recent cities array contains anything and then loads the first item in the array on page load.
     //This is always the last city searched also.
@@ -172,6 +166,7 @@ $(document).ready(function() {
             var uvIndexValue = $("<p>");
             uvIndexValue.text(response.value);
             uvIndexValue.addClass("uv-value");
+            uvIndexValue.attr("id", "25b");
 
             uvIndexPTag.append(uvIndexValue);
 
