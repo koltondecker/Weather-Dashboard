@@ -41,7 +41,7 @@ $(document).ready(function() {
                     }
                     else {
                         $.ajax({
-                            url: "http://api.ipstack.com/" + location.IPv4 + "?access_key=" + ipAddressApiKey,
+                            url: "https://api.ipstack.com/" + location.IPv4 + "?access_key=" + ipAddressApiKey,
                             method: "Get"
                         }).then(function(location) {
                             currentWeatherAPI(location.city);
