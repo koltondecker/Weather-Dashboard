@@ -2,6 +2,7 @@ $(document).ready(function() {
 //Javascript code in here.    
     
     var apiKey = "c67bcac9baf63e1d77cd3d4a1d20a93c";
+    var geoLocationApiKey = "09068b10-55fe-11eb-8939-299a0c3ab5e5";
     var forecastApiKey = "c6a936905a8566bfdc4cca37ff190c24";
     var ipAddressApiKey = "1e2553f4aa45ffd9c936850e77e4a3e8";
     var recentCitiesArray = [];
@@ -28,9 +29,10 @@ $(document).ready(function() {
     // to find nearest location to pass as city for weather dashboard. Uses ip address as backup if position fails.
     $("#locationBtn").on("click", function(e) {
         e.preventDefault();
-        navigator.geolocation.getCurrentPosition((position) => {
+        getCurrentPosition();
+        function getCurrentPosition(){
             $.ajax({
-                url: "https://geolocation-db.com/jsonp",
+                url: "https://geolocation-db.com/jsonp/" + geoLocationApiKey,
                 jsonpCallback: "callback",
                 dataType: "jsonp",
                 success: function(location) {
@@ -45,9 +47,9 @@ $(document).ready(function() {
                             currentWeatherAPI(location.city);
                         });
                     }
-                },
-            })
-        });
+                }
+            });
+        };
     });
     
     //Checks if the recent cities array contains anything and then loads the first item in the array on page load.
@@ -118,7 +120,6 @@ $(document).ready(function() {
             url: queryUrl,
             method: "Get"
         }).then(function(response) {
-            console.log(response);
             //Grabs the icon code from the response object and uses the openweathermap url to get image source for element.
             var weatherImageID = response.weather[0].icon;
             var weatherImageURL = "https://openweathermap.org/img/w/" + weatherImageID + ".png";
@@ -158,7 +159,6 @@ $(document).ready(function() {
             url: queryUrl,
             method: "Get"
         }).then(function(response) {
-            console.log(response);
             var indexValue = 7;
             var uvIndexPTag = $("<p>");
             uvIndexPTag.text("UV Index: ");
@@ -199,12 +199,9 @@ $(document).ready(function() {
             url: queryUrl,
             method: "Get"
         }).then(function(response) {
-            console.log(response);
             var fiveDayHeader = $("<h3>");
             fiveDayHeader.addClass("fiveDayHeader");
             fiveDayHeader.text("5-Day Forecast: ");
-
-            console.log(response.list[0].main.temp);
 
             $("#city-5-day-forecast").append(fiveDayHeader);
 
