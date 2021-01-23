@@ -4,7 +4,6 @@ $(document).ready(function() {
     var apiKey = "c67bcac9baf63e1d77cd3d4a1d20a93c";
     var geoLocationApiKey = "09068b10-55fe-11eb-8939-299a0c3ab5e5";
     var forecastApiKey = "c6a936905a8566bfdc4cca37ff190c24";
-    var ipAddressApiKey = "1e2553f4aa45ffd9c936850e77e4a3e8";
     var recentCitiesArray = [];
     var recentSearchesAmount = 10;
 
@@ -32,16 +31,16 @@ $(document).ready(function() {
         getCurrentPosition();
         function getCurrentPosition(){
             $.ajax({
-                url: "https://geolocation-db.com/jsonp/" + geoLocationApiKey,
+                url: "https://geolocation-db.com/json/" + geoLocationApiKey,
                 jsonpCallback: "callback",
-                dataType: "jsonp",
+                dataType: "json",
                 success: function(location) {
                     if(location.city!==null) {
                         currentWeatherAPI(location.city);
                     }
                     else {
                         $.ajax({
-                            url: "https://api.ipstack.com/" + location.IPv4 + "?access_key=" + ipAddressApiKey,
+                            url: "https://ipapi.co/" + location.IPv4 + "/json",
                             method: "Get"
                         }).then(function(location) {
                             currentWeatherAPI(location.city);
