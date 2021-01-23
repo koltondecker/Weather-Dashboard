@@ -40,67 +40,67 @@ The following image demonstrates the application functionality:
 - This is what the page looks like on initial page load. No weather information is displayed and no recent searches are shown if user is visiting site for the first time:
 <br>
 <br>
-<img src="assets/images/initial-page-load.png" width="50%">
+<img src="assets/images/initial-page-load.png" width="100%">
 <br>
 <br>
 - When the current location button is pressed, weather data based on your current location is displayed and that location is added to your recent searches on the left:
 <br>
 <br>
-<img src="assets/images/use-current-location.png" width="50%">
+<img src="assets/images/use-current-location.png" width="100%">
 <br>
 <br>
 - When searching the city of "Denver", weather data is shown for Denver:
 <br>
 <br>
-<img src="assets/images/searching-denver.png" width="50%">
+<img src="assets/images/searching-denver.png" width="100%">
 <br>
 <br>
 - Cities with spaces in their names are still properly looked up as long as the city is spelled correctly:
 <br>
 <br>
-<img src="assets/images/city-with-a-space.png" width="50%">
+<img src="assets/images/city-with-a-space.png" width="100%">
 <br>
 <br>
 - When something is searched that is not a city, no data will display on the page and the non-city value will not be added to recent searches:
 <br>
 <br>
-<img src="assets/images/not-a-city.png" width="50%">
+<img src="assets/images/not-a-city.png" width="100%">
 <br>
 <br>
 - The recent searches list holds up to 10 different cities as displayed here:
 <br>
 <br>
-<img src="assets/images/ten-locations-filled.png" width="50%">
+<img src="assets/images/ten-locations-filled.png" width="100%">
 <br>
 <br>
 - If a new city is searched when the list is full, the last (or 11th) value will be cut off and forgotten about:
 <br>
 <br>
-<img src="assets/images/last-location-cut-off.png" width="50%">
+<img src="assets/images/last-location-cut-off.png" width="100%">
 <br>
 <br>
 - The list of recent searches also acts as a list of buttons that you can select to load that cities weather data to the page:
 <br>
 <br>
-<img src="assets/images/recent-cities-selector.png" width="50%">
+<img src="assets/images/recent-cities-selector.png" width="100%">
 <br>
 <br>
 - When that city button is pressed, the city is moved to the top of the list of recent searches and weather data is displayed:
 <br>
 <br>
-<img src="assets/images/boston-selected-from-side.png" width="50%">
+<img src="assets/images/boston-selected-from-side.png" width="100%">
 <br>
 <br>
 - Local storage holds the list of recent searches and is parsed each time page is visited to display recent searches list. Last searched city is also displayed on the page on load.
 <br>
 <br>
-<img src="assets/images/local-storage.png" width="50%">
+<img src="assets/images/local-storage.png" width="100%">
 <br>
 <br>
 - The scale below denotes the UV Index threshold scale that is utilized to display the appropriate color around the uv index value on the page.
 <br>
 <br>
-<img src="assets/images/uvindexscale.jpg" width="50%">
+<img src="assets/images/uvindexscale.jpg" width="100%">
 
 ## Review
 
